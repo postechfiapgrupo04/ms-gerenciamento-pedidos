@@ -1,4 +1,4 @@
-package br.com.diegonassula.msgerenciamentopedidos;
+package br.com.fiap.mspedidos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,5 @@ public class MsGerenciamentoPedidosApplication {
     public static void main(String[] args) {
         SpringApplication.run(MsGerenciamentoPedidosApplication.class, args);
     }
-
-
 
 }

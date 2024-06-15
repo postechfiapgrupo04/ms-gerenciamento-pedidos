@@ -1,4 +1,4 @@
-package br.com.diegonassula.msgerenciamentopedidos;
+package br.com.fiap.mspedidos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
