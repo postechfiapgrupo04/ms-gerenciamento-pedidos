@@ -3,6 +3,7 @@ package br.com.fiap.mspedidos.application.rest.controller.facade.implementation;
 import br.com.fiap.mspedidos.application.rest.controller.facade.OrderFacade;
 import br.com.fiap.mspedidos.application.rest.converter.OrderMapper;
 import br.com.fiap.mspedidos.application.rest.dto.OrderDTO;
+import br.com.fiap.mspedidos.domain.exception.AppException;
 import br.com.fiap.mspedidos.domain.usecase.OrderUseCase;
 import org.springframework.stereotype.Component;
 
@@ -29,14 +30,14 @@ public class OrderFacadeImp implements OrderFacade {
     }
 
     @Override
-    public OrderDTO getOrder(String orderId) {
+    public OrderDTO getOrder(String orderId) throws AppException {
         return orderMapper.
                 OrderToOrderDTO(orderUseCase.
                         getOrder(orderId));
     }
 
     @Override
-    public OrderDTO updateOrder(String orderId, OrderDTO orderDTO) {
+    public OrderDTO updateOrder(String orderId, OrderDTO orderDTO) throws AppException {
         return orderMapper.
                 OrderToOrderDTO(orderUseCase.
                         updateOrder(orderId, orderMapper.
@@ -44,12 +45,12 @@ public class OrderFacadeImp implements OrderFacade {
     }
 
     @Override
-    public void deleteOrder(String orderId) {
+    public void deleteOrder(String orderId) throws AppException {
         orderUseCase.deleteOrder(orderId);
     }
 
     @Override
-    public OrderDTO changeOrderStatus(String orderId, String status) {
+    public OrderDTO changeOrderStatus(String orderId, String status) throws AppException {
         return orderMapper.
                 OrderToOrderDTO(orderUseCase.
                         changeOrderStatus(orderId, status));
