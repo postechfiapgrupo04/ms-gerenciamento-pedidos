@@ -1,12 +1,12 @@
 package br.com.fiap.mspedidos.application.rest.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemDTO {
 
     private String productId;

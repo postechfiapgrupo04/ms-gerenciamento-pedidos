@@ -1,5 +1,7 @@
 package br.com.fiap.mspedidos.domain.usecase;
 
+import br.com.fiap.mspedidos.application.rest.converter.OrderMapper;
+import br.com.fiap.mspedidos.application.service.OrderProducerService;
 import br.com.fiap.mspedidos.domain.entity.Order;
 import br.com.fiap.mspedidos.domain.enums.OrderStatus;
 import br.com.fiap.mspedidos.domain.exception.AppException;
@@ -15,15 +17,25 @@ import java.util.UUID;
 public class OrderUseCase {
 
     private final OrderRepository orderRepository;
+    private final OrderProducerService orderProducerService;
+    private final OrderMapper orderMapper;
 
-    public OrderUseCase(OrderRepository orderRepository) {
+    public OrderUseCase(OrderRepository orderRepository, OrderProducerService orderProducerService, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
+        this.orderProducerService = orderProducerService;
+        this.orderMapper = orderMapper;
     }
 
     public Order createOrder(Order order) {
         //TODO criate a service that calls the storage service to remove the item quantity from the stock
-        //TODO create a service that calls the message service to send a message to the customer and the transportation service
-        return orderRepository.save(order);
+
+        Order newOrder = orderRepository.save(order);
+        /*
+         * Create a message to send to the logistic service
+         * */
+        orderProducerService.sendOrderEventToLogistic(orderMapper.OrderToOrderDTO(order));
+
+        return newOrder;
     }
 
     public Order getOrder(String orderId) throws AppException {
