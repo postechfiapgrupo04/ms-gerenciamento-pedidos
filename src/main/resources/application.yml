@@ -31,3 +31,11 @@ spring:
       bootstrap-servers: localhost:29092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+server:
+  compression:
+    enabled: 'true'
+  port: 8000
+  forward-headers-strategy: native
+app:
+  integration:
+    product_url: http://localhost:8001/produtos
