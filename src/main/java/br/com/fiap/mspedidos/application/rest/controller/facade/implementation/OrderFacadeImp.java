@@ -21,7 +21,7 @@ public class OrderFacadeImp implements OrderFacade {
     }
 
     @Override
-    public OrderDTO createOrder(OrderDTO orderDTO) {
+    public OrderDTO createOrder(OrderDTO orderDTO) throws AppException {
 
         return orderMapper.
                 OrderToOrderDTO(orderUseCase.

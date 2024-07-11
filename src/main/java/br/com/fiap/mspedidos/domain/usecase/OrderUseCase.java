@@ -4,6 +4,7 @@ import br.com.fiap.mspedidos.application.rest.converter.OrderMapper;
 import br.com.fiap.mspedidos.application.service.OrderProducerService;
 import br.com.fiap.mspedidos.application.service.integration.StockService;
 import br.com.fiap.mspedidos.domain.entity.Order;
+import br.com.fiap.mspedidos.domain.entity.OrderItem;
 import br.com.fiap.mspedidos.domain.enums.OrderStatus;
 import br.com.fiap.mspedidos.domain.exception.AppException;
 import br.com.fiap.mspedidos.domain.exception.constants.ErrorConstants;
@@ -32,21 +33,13 @@ public class OrderUseCase {
         this.stockService = stockService;
     }
 
-    public Order createOrder(Order order) {
-        order.getItems().forEach(item -> {
-            try {
-                stockService.getStock(item.getCodItem());
-            } catch (AppException e) {
-                log.error("Error to get stock from product: {}", item.getCodItem());
-            }
-        });
-        order.getItems().forEach(item -> {
-            try {
-                stockService.updateStock(item.getCodItem(), item.getQuantity().intValue());
-            } catch (AppException e) {
-                log.error("Error to update stock from product: {}", item.getCodItem());
-            }
-        });
+    public Order createOrder(Order order) throws AppException {
+        for (OrderItem orderItem : order.getItems()) {
+            stockService.getStock(orderItem.getCodItem());
+        }
+        for (OrderItem item : order.getItems()) {
+            stockService.updateStock(item.getCodItem(), item.getQuantity().intValue());
+        }
 
 
         Order newOrder = orderRepository.save(order);

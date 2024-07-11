@@ -18,7 +18,7 @@ public class OrderController extends AbstractRestController {
     }
 
     @PostMapping
-    public OrderDTO createOrder(@RequestBody OrderDTO orderDTO) {
+    public OrderDTO createOrder(@RequestBody OrderDTO orderDTO) throws AppException {
         return orderFacade.createOrder(orderDTO);
     }
 

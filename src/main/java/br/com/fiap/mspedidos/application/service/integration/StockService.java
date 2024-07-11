@@ -27,11 +27,11 @@ public class StockService {
 
     public void updateStock(String productId, Integer quantity) throws AppException {
         ProdutoAtualizaEstoqueRequest produtoAtualizaEstoqueRequest = new ProdutoAtualizaEstoqueRequest(quantity);
-        String url = stockUrl + "/" + productId + "/saida-estoque";
-        ProdutoAtualizaEstoqueRequest response = restTemplate.postForObject(
-                stockUrl + "/" + productId + "/saida-estoque", produtoAtualizaEstoqueRequest, ProdutoAtualizaEstoqueRequest.class);
-        if(response == null)
-            throw new AppException("Erro ao buscar produto no estoque");
+        try {
+            restTemplate.postForEntity(stockUrl + "/" + productId + "/saida-estoque", produtoAtualizaEstoqueRequest, ProdutoResponse.class);
+        } catch (Exception e) {
+            throw new AppException("Não foi possível atualizar o estoque do produto");
+        }
     }
 
 }

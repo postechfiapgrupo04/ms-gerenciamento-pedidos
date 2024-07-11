@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderFacade {
 
-    OrderDTO createOrder(OrderDTO orderDTO);
+    OrderDTO createOrder(OrderDTO orderDTO) throws AppException;
 
     OrderDTO getOrder(String orderId) throws AppException;
 
