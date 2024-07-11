@@ -3,7 +3,6 @@ package br.com.fiap.mspedidos.application.service.integration;
 import br.com.fiap.mspedidos.application.rest.dto.ProdutoAtualizaEstoqueRequest;
 import br.com.fiap.mspedidos.application.rest.dto.ProdutoResponse;
 import br.com.fiap.mspedidos.domain.exception.AppException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class StockService {
     public ProdutoResponse getStock(String productId) throws AppException {
 
         ResponseEntity<ProdutoResponse> response = restTemplate.getForEntity(stockUrl + "/" + productId, ProdutoResponse.class);
-        if(response.getStatusCode().isError())
+        if (response.getStatusCode().isError())
             throw new AppException("Erro ao buscar produto no estoque");
         return response.getBody();
     }
