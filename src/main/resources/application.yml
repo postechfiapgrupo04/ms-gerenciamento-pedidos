@@ -38,4 +38,4 @@ server:
   forward-headers-strategy: native
 app:
   integration:
-    product_url: http://localhost:8001/produtos
+    product_url: http://localhost:8080/produtos
